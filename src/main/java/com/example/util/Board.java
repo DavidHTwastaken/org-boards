@@ -15,8 +15,20 @@ public class Board {
         this.cards = cards;
     }
 
+    public Card getCard(int i){
+        return cards.get(i);
+    }
+
+    public void removeCard(int i){
+        this.cards.remove(i);
+    }
+
     public void addCard(Card card){
         this.cards.add(card);
+    }
+
+    public void addNote(int card, Note note){
+        this.cards.get(card).addNote(note);
     }
 
     // Convert Board object to JSONObject
@@ -77,7 +89,7 @@ public class Board {
         return boards;
     }
 
-    public ArrayList<Card> getCards() {
-        return (ArrayList<Card>) this.cards;
+    public List<Card> getCards() {
+        return this.cards;
     }
 }

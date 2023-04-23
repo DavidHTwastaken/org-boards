@@ -52,6 +52,15 @@ public class SocketServer {
     @OnClose
     public void close(Session session) throws FileNotFoundException {
         users.remove(session.getId());
+        // Adds changes to boards.json
+        if(users.isEmpty()){
+            String path = Objects.requireNonNull(this.getClass()
+                    .getClassLoader()
+                    .getResource(boardFile))
+                    .toString();
+            PrintWriter out = new PrintWriter(path);
+            out.write(singleBoard.toJSON().toString());
+        }
     }
 
     @OnMessage
@@ -63,24 +72,25 @@ public class SocketServer {
             // Create new card
             case "new-card":
                 System.out.println("Added card: " + comm);
-                //singleBoard.addCard(Card.jsonToCard(message));
+                singleBoard.addCard(Card.jsonToCard(message));
                 messageAll(session,message.toString());
                 break;
             // create new note
             case "new-note":
-//                singleBoard.getCards().get(message.getInt("card"))
-//                        .addNote(new Note(message.getString("text"),message.getString("creator")));
+                singleBoard.addNote(message.getInt("card"),
+                        new Note(message.getString("text"),message.getString("creator")));
                 messageAll(session, message.toString());
                 break;
             // delete note with index
             case "delete-note":
-//                singleBoard.getCards().get(message.getInt("card")).deleteNote(message.getInt("note"));
+                singleBoard.getCard(message.getInt("card"))
+                        .deleteNote(message.getInt("note"));
                 messageAll(session, message.toString());
                 break;
             // delete card with index
             case "delete-card":
                 System.out.println("Deleting card: "+comm);
-                //singleBoard.getCards().remove(message.getInt("card"));
+                singleBoard.removeCard(message.getInt("card"));
                 //System.out.println("New cards list: " + singleBoard.getCards().toString());
                 messageAll(session, message.toString());
                 break;
