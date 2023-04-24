@@ -114,12 +114,13 @@ function setupSocket(){
                 removeNote(parseInt(data.note),parseInt(data.card));
                 break;
             case "board":
+                setupBoard(JSON.parse(data.board));
                 break;
             case "error":
                 console.error(data.message);
                 break;
             default:
-                console.error("It's over.");
+                console.error("Client was unable to parse a type from the server's message.");
                 break;
         }
     });
@@ -251,6 +252,7 @@ function addCard(title,creator) {
             }
         });
     });
+    return newCard;
 }
 
 function removeCard(card) {
@@ -299,4 +301,13 @@ function removeNote(note, card){
     let targetCard = cardList.item(card);
     const messages = targetCard.getElementsByClassName("message-card");
     messages.item(note).remove();
+}
+
+function setupBoard(board){
+    for(let i = 0; i < board.length; i++){
+        addCard(board[i].title, board[i].creator);
+        for(let j = 0; j < board[i].notes.length; j++){
+            addNote(board[i].notes[j].text, i, board[i].notes[j].creator);
+        }
+    }
 }
