@@ -79,7 +79,7 @@ html, body {
     cursor: pointer;
     margin-bottom: 10px;
 }
-.add-message-btn{
+.card-btn{
     display: block;
     border: none;
     background-color: #ea9999;
