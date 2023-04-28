@@ -94,7 +94,11 @@ function setupSocket(){
         console.log(socket.readyState);
     });
 
-// Listen for messages (work in progress)
+    socket.addEventListener('close', (event) => {
+        window.location.href = 'index.html';
+    })
+
+    // Listen for messages
     socket.addEventListener("message", (event) => {
         console.log("Message: "+event.data);
         console.log("got message")

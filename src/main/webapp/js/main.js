@@ -1,6 +1,15 @@
 const cardsContainer = document.querySelector('.cards-container');
 // const addCardBtn = document.querySelector('#add-card-btn');
 
+function setupHome() {
+    setupSocket();
+    if(username === undefined || socket === undefined){
+        window.location.href = 'index.html';
+        return;
+    }
+    setupAddCardBtn();
+}
+
 function setupAddCardBtn() {
     // Create the button element
     const addCardBtn = document.createElement('button');
@@ -19,8 +28,7 @@ function setupAddCardBtn() {
         createAddMessageBtn(newCard);
 
         // Add the new card to the cards container
-        const currentCards = cardsContainer.getElementsByClassName('card');
-        cardsContainer.insertBefore(newCard,currentCards.item(currentCards.length-1));
+        cardsContainer.appendChild(newCard);
 
         // Remove the button so that user cannot create multiple pending cards
         addCardBtn.remove();
@@ -244,7 +252,6 @@ const createMessageCard = () => {
     // Create the message card
     const messageCard = document.createElement('div');
     messageCard.className = 'message-card';
-
     return messageCard;
 }
 
