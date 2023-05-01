@@ -141,9 +141,9 @@ function addCard(title,creator) {
     addDeleteCardBtn(newCard);
     createAddMessageBtn(newCard);
 
-    // Add the new card to the cards container
-    const currentCards = cardsContainer.getElementsByClassName('card');
-    cardsContainer.insertBefore(newCard,currentCards.item(currentCards.length-1));
+    // Add the new card to the cards container (before button or pending card)
+    const containerChildren = cardsContainer.children;
+    cardsContainer.insertBefore(newCard,containerChildren.item(containerChildren.length-1));
 }
 
 function removeCard(card) {

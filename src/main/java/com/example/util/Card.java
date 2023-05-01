@@ -38,4 +38,13 @@ public class Card {
     public void deleteNote(int index) {
         this.notes.remove(index);
     }
+
+    @Override
+    public String toString() {
+        return "Card{" +
+                "title='" + title + '\'' +
+                ", notes=" + notes +
+                ", creator='" + creator + '\'' +
+                '}';
+    }
 }

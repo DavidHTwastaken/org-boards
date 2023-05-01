@@ -19,7 +19,7 @@ public class SocketServer {
     private final String boardFile = "board.json";
 
     // for single-board test case
-    private Board singleBoard = null;
+    private static Board singleBoard = null;
     // session to userId
     private static Map<String,String> users = new HashMap<>();
     // userId to boardId
@@ -73,10 +73,12 @@ public class SocketServer {
             case "new-card":
                 System.out.println("Added card: " + comm);
                 singleBoard.addCard(Card.jsonToCard(message));
+                System.out.println(singleBoard);
                 messageAll(session,message.toString());
                 break;
             // create new note
             case "new-note":
+                System.out.println("Current Board: "+singleBoard);
                 singleBoard.addNote(message.getInt("card"),
                         new Note(message.getString("text"),message.getString("creator")));
                 messageAll(session, message.toString());

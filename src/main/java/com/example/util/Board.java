@@ -92,4 +92,12 @@ public class Board {
     public List<Card> getCards() {
         return this.cards;
     }
+
+    @Override
+    public String toString() {
+        return "Board{" +
+                "title='" + title + '\'' +
+                ", cards=" + cards +
+                '}';
+    }
 }

@@ -25,7 +25,6 @@ function setupAddCardBtn() {
         // Add features to new card
         setupCardTitleInput(newCard);
         addDeleteCardBtn(newCard);
-        createAddMessageBtn(newCard);
 
         // Add the new card to the cards container
         cardsContainer.appendChild(newCard);
@@ -94,7 +93,7 @@ const addCardTitle = (card,title) => {
     cardTitle.textContent = title;
 
     // Insert the card title into the new card
-    card.appendChild(cardTitle);
+    card.prepend(cardTitle);
 }
 
 const finalizeCard = (card,title) => {
@@ -104,6 +103,9 @@ const finalizeCard = (card,title) => {
     );
     console.log("Sending instruction to create card: "+ request);
     socket.send(request);
+
+    // Insert the add message button
+    createAddMessageBtn(card);
 
     // Remove the 'new-card' id and replace the Add Card button
     card.removeAttribute('id');

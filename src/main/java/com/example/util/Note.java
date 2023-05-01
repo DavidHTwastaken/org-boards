@@ -22,4 +22,12 @@ public class Note {
         }
         return msg;
     }
+
+    @Override
+    public String toString() {
+        return "Note{" +
+                "text='" + text + '\'' +
+                ", creator='" + creator + '\'' +
+                '}';
+    }
 }
