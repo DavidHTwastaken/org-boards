@@ -35,11 +35,11 @@ public class Board {
     public JSONObject toJSON(){
         JSONArray cards = new JSONArray();
         for(Card card : this.cards){
-            cards.put(card);
+            cards.put(card.toJSON());
         }
         return new JSONObject()
             .put("title",this.title)
-            .put("cards",new JSONArray(cards));
+            .put("cards",cards);
     }
 
     /**
