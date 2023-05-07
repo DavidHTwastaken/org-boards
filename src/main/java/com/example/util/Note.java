@@ -4,12 +4,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Note {
-    String text;
-    String creator;
+    private String text;
+    private String creator;
 
     public Note(String text, String creator) {
         this.text = text;
         this.creator = creator;
+    }
+
+    // Convert Note to JSONObject
+    public JSONObject toJSON(){
+        return new JSONObject()
+                .put("text",this.text)
+                .put("creator",this.creator);
     }
 
     // Convert JSONObject to an instance of Note

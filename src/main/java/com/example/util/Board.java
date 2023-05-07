@@ -8,8 +8,8 @@ import java.util.List;
 import org.json.*;
 
 public class Board {
-    String title;
-    List<Card> cards;
+    private String title;
+    private List<Card> cards;
     public Board(String title, List<Card> cards){
         this.title = title;
         this.cards = cards;
@@ -33,10 +33,13 @@ public class Board {
 
     // Convert Board object to JSONObject
     public JSONObject toJSON(){
-        JSONObject board = new JSONObject();
-        board.put("title",this.title);
-        board.put("cards",new JSONArray(this.cards));
-        return board;
+        JSONArray cards = new JSONArray();
+        for(Card card : this.cards){
+            cards.put(card);
+        }
+        return new JSONObject()
+            .put("title",this.title)
+            .put("cards",new JSONArray(cards));
     }
 
     /**

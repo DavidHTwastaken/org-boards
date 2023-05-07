@@ -4,21 +4,33 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Card {
-    String title;
-    ArrayList<Note> notes;
-    String creator;
+    private String title;
+    private List<Note> notes;
+    private String creator;
 
-    public Card(String title, ArrayList<Note> notes, String creator) {
+    public Card(String title, List<Note> notes, String creator) {
         this.title = title;
         this.notes = notes;
         this.creator = creator;
     }
 
+    public JSONObject toJSON(){
+        JSONArray notes = new JSONArray();
+        for(Note note : this.notes){
+            notes.put(note.toJSON());
+        }
+        return new JSONObject()
+                .put("title",this.title)
+                .put("notes",notes)
+                .put("creator",this.creator);
+    }
+
     // Convert JSONObject to an instance of Card
     public static Card jsonToCard(JSONObject card){
-        ArrayList<Note> notes = new ArrayList<>();
+        List<Note> notes = new ArrayList<>();
         // Check if the JSONObject has a list of notes
         if(card.has("notes")){
             JSONArray notesObj = card.getJSONArray("notes");

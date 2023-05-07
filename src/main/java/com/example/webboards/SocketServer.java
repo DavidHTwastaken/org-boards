@@ -42,7 +42,7 @@ public class SocketServer {
 //        session.getBasicRemote().sendText(resp.toString());
 
         // return current state of board from file (single board)
-        session.getBasicRemote().sendText("Connection established");
+        System.out.println("Singleboard: "+singleBoard.toJSON());
         JSONObject resp = new JSONObject()
                 .put("board",singleBoard.toJSON())
                 .put("type","board");
@@ -58,8 +58,9 @@ public class SocketServer {
                     .getClassLoader()
                     .getResource(boardFile))
                     .toString();
-            PrintWriter out = new PrintWriter(path);
-            out.write(singleBoard.toJSON().toString());
+            try (PrintWriter out = new PrintWriter(path)) {
+                out.write(singleBoard.toJSON().toString());
+            }
         }
     }
 

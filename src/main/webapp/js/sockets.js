@@ -101,9 +101,7 @@ function setupSocket(){
     // Listen for messages
     socket.addEventListener("message", (event) => {
         console.log("Message: "+event.data);
-        console.log("got message")
         const data = JSON.parse(event.data);
-        console.log(data)
         switch(data.type){
             case "new-card":
                 addCard(data.title,data.creator);
@@ -118,7 +116,8 @@ function setupSocket(){
                 removeNote(parseInt(data.note),parseInt(data.card));
                 break;
             case "board":
-                setupBoard(JSON.parse(data.board));
+                console.log("Board setup according to server: "+JSON.stringify(data.board));
+                setupBoard(data.board);
                 break;
             case "error":
                 console.error(data.message);
@@ -182,10 +181,11 @@ function removeNote(note, card){
 }
 
 function setupBoard(board){
-    for(let i = 0; i < board.length; i++){
-        addCard(board[i].title, board[i].creator);
-        for(let j = 0; j < board[i].notes.length; j++){
-            addNote(board[i].notes[j].text, i, board[i].notes[j].creator);
+    console.log("Setting up board...");
+    for(let i = 0; i < board.cards.length; i++){
+        addCard(board.cards[i].title, board.cards[i].creator);
+        for(let j = 0; j < board.cards[i].notes.length; j++){
+            addNote(board.cards[i].notes[j].text, i, board.cards[i].notes[j].creator);
         }
     }
 }
