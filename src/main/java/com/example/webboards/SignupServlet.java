@@ -5,8 +5,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.json.HTTP;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -25,7 +23,8 @@ public class SignupServlet extends HttpServlet {
         // processing post request json
         try {
             BufferedReader read = request.getReader(); // put the request from client in a buffer
-            while ((ln = read.readLine()) != null) { // assign to ln string by reading each line and make sure it's not null
+            while ((ln = read.readLine()) != null) { // assign to ln string by reading each line and make sure it's not
+                                                     // null
                 System.out.println("ln = " + ln);
                 buffer.append(ln); // put it in the string builder
             }
@@ -43,7 +42,8 @@ public class SignupServlet extends HttpServlet {
         // to do create a Users class
         boolean success = false; // was sign up process complete?
         try {
-            if (!(Users.getAccounts().containsKey(username))) { // check if user exists (if doesn't then make the account)
+            if (!(Users.getAccounts().containsKey(username))) { // check if user exists (if doesn't then make the
+                                                                // account)
                 success = Users.createAccount(username, password); // make the account
             }
         } catch (RuntimeException e) {
@@ -52,8 +52,8 @@ public class SignupServlet extends HttpServlet {
         }
         JSONObject jsonResponse = new JSONObject();
         // create a json object which tells whether sign up process was success or fail
-        jsonResponse.put("success",success);
-        jsonResponse.put("username",username);
+        jsonResponse.put("success", success);
+        jsonResponse.put("username", username);
 
         // sending json response back to client
         PrintWriter out = response.getWriter();
