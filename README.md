@@ -1,6 +1,6 @@
 # Winter 2023 CSCI 2020U Systems Project Group 8
 
-## Video link:
+## Demonstration Video:
 
 https://shorturl.at/dhny1
 
